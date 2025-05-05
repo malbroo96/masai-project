@@ -1,21 +1,17 @@
-
-for(let i=0;i<=15;i++){
-    let line=""
+const prime =function(N) {
 
 
-    for(let j=0 ; j<=15; j++){
-        // line += `(${i},${j}) `
-        if(i==j || i+j==15 || i==15 || i==0 || j==15 || j==0
-            ){
-            line+="* "
-            
-        }else{
-            line+="  "
+    for (let i = 2; i <= N; i++) {
+        let flagisprime=true
+        for (let j=2 ; j<Math.sqrt(i) ;j++){
+            if(i%j===0){
+                flagisprime=false
+            }
+        }if(flagisprime===true){
+            console.log(i)
         }
-        // console.log(line)
+
     }
-    console.log(line)
 
-
-    
 }
+prime(15)
