@@ -1,15 +1,10 @@
-const data = [
-    { name: "Alice", department: "Engineering" },
-    { name: "Bob", department: "Sales" },
-    { name: "Charlie", department: "HR" }
-  ]
-
-  function getname(arr) {
-    let output = [];
-    for(let i=0 ; i<arr.length ; i++){
-        output.push(arr[i].name)
-    }
-    return output
+function pinetree(N) {
+  for (let i = 0; i < N; i++) {
+    let space = " ".repeat(N - i - 1);
+    let star = "*".repeat(2 * i + 1);
+    console.log(space + star);  
   }
+  console.log("    |")
+}
 
-  console.log(getname(data))
+pinetree(5);
