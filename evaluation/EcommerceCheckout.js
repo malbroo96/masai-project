@@ -16,10 +16,10 @@ const checkout = {
     }
 };
 
-// Fixing the first item by converting price to a number
+
 checkout.addItem({ name: "Coffee Maker", price: 99.95 });
 checkout.addItem({ name: "Milk", price: 3.50 });
 
 console.log(checkout.getTotal()); // Output: Total: $103.45
-// Adding an item with a non-numeric price
-checkout.addItem({ name: "Invalid Item", price: "Free" }); // Invalid price.
+
+checkout.addItem({ name: "Invalid Item", price: "Free" }); 
