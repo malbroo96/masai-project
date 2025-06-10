@@ -1,0 +1,8 @@
+div p {
+  color: blue;
+}
+
+div > p {
+  font-weight: bold;
+}
+
