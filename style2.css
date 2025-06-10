@@ -1,0 +1,25 @@
+/* Use the universal selector to remove all default margin and padding across all elements */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Create an h1 element with an id "main-title" and apply styles to make the font size 32px, text color dark blue, and center the text */
+#main-title {
+    font-size: 32px;
+    color: darkblue;
+    text-align: center;
+}
+
+/* Create an h2 element with an id "subtitle" and apply styles to make the font size 24px and text color dark green */
+#subtitle {
+    font-size: 24px;
+    color: darkgreen;
+}
+
+/* Add a few paragraphs with text. Apply padding and a soft border color to each paragraph */
+p {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
