@@ -1,39 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Webpage</title>
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 100px); /* 2 columns */
+      grid-template-rows: repeat(3, 100px);    /* 3 rows */
+      gap: 10px;
+    }
+
+    .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    .cell1 { background-color: red; }
+    .cell2 { background-color: green; }
+    .cell3 { background-color: blue; }
+    .cell4 { background-color: orange; }
+    .cell5 {
+      background-color: purple;
+      grid-column: span 2; /* Makes it span both columns */
+    }
+
+    /* Remove cell6 since 5 takes up the space */
+  </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <h1>My Sample Webpage</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <!-- Main Section -->
-    <section>
-        <article>
-            <h2>Blog Post 1</h2>
-            <p>This is the content of the first blog post. It's a sample paragraph to demonstrate the structure.</p>
-        </article>
-        <article>
-            <h2>Blog Post 2</h2>
-            <p>This is the content of the second blog post. It provides another example of how articles can be structured within a section.</p>
-        </article>
-    </section>
-
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2023 My Sample Webpage. All rights reserved.</p>
-    </footer>
-</body>
-</html>
-
+<div class="grid">
+  <div class="cell cell1">1<
