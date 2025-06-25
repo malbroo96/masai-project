@@ -4,5 +4,5 @@ let car={
         return this.brand;
     }
 }
-let boundgetBrand=car.getBrand.bind(car)
-console.log(boundgetBrand())
+let budjectcar=car.getBrand.bind(car)
+console.log(budjectcar())
