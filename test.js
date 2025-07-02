@@ -1,21 +1,12 @@
-function subOfSubarray(N, K, arr) {
-    //write your code here
-    for (let i = 0; i < N; i++) {
-        let res = 0;
-        for (let j = i; j < N; j++) {
+let promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject("An error occurred");
+  }, 1000);
+});
 
-            res += arr[j]
-            if (res === K) {
-                console.log("Yes")
-                return
-            }
+promise.then((result) => {
+  console.log(result);
+}).catch((msg)=>{
+  console.log(msg,"something")
+})
 
-        }
-
-    }
-    console.log("No")
-
-
-
-
-}
