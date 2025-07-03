@@ -1,16 +1,16 @@
-function Animal(){
-    this.type="Animal sound"
+function Animal() {
+    this.type = "Animal sound"
 }
-Animal.prototype.sound=function(){
+Animal.prototype.sound = function () {
     console.log("Animal sound");
 }
-function Dog(){
+function Dog() {
     Animal.call(this);
 
-}Dog.prototype=Object.create(Animal.prototype);
-Dog.prototype.constructor=Dog;
-Dog.prototype.sound=function(){
+} Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+Dog.prototype.sound = function () {
     console.log("Bark");
 }
-const myDog=new Dog()
+const myDog = new Dog()
 myDog.sound();
