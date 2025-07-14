@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Akhil's Social Media</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      gap: 40px;
+      background: violet;
+      padding: 20px;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .linkedin a {
+      color: orange;
+    }
+
+    .facebook a {
+      color: teal;
+    }
+
+    .instagram a {
+      color: red;
+    }
+
+    /* Direct child links */
+    .linkedin > a,
+    .facebook > a,
+    .instagram > a {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .nav a:hover {
+      color: black;
+      background: yellow;
+      transition: 0.3s;
+    }
+
+    .nav a:active {
+      color: white;
+      background: rgb(245, 230, 250);
+    }
+
+    .nav a[href^="https"] {
+      color: crimson !important;
+      font-weight: 900;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="section linkedin">
+      <a href="https://www.linkedin.com/in/akhil-joseph225292/">LinkedIn</a>
+      <div>
+        <a href="https://www.linkedin.com/messaging/thread/new/">Messages</a>
+      </div>
+    </div>
+
+    <div class="section facebook">
+      <a href="https://www.facebook.com/akhil.joseph.5477">Facebook</a>
+      <div>
+        <a href="https://www.facebook.com/akhil.joseph.5477/about">About</a>
+        <a href="https://www.facebook.com/akhil.joseph.5477/photos">Photos</a>
+      </div>
+    </div>
+
+    <div class="section instagram">
+      <a href="https://www.instagram.com/?hl=en">Instagram</a>
+      <div>
+        <a href="https://www.instagram.com/direct/inbox/?hl=en">Messages</a>
+        <a href="https://www.instagram.com/malbrooo_/?hl=en">Profile</a>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>
