@@ -73,8 +73,16 @@ function Animal(name,weight){
 }
 
 Animal.prototype.speak=function(){
-    return `${this.name}makes a sound`
+    return `${this.name} makes a sound`
 }
 Animal.prototype.info=function(){
-    return `${this.name}and weight is ${this.weight}`
+    return `${this.name} and weight is ${this.weight}`
 }
+
+const arr = [ { "type":"bird", "name":"Parrot", "weight":1.2, "canFly":true } ];
+
+arr.map((obj)=>{
+    const animal=new Animal(obj.name,obj.weight);
+   console.log(animal.speak());
+   console.log( animal.info());
+})
