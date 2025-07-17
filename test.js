@@ -1,32 +1,20 @@
-function twoArrayAndProduct(n, m, matrix, p) {
-  //write code here
-  let count = 0;
+console.log("Start");
 
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < m; j++) {
-      if (j + 2 < m) {
-        let prod = matrix[i][j] * matrix[i][j + 1] * matrix[i][j + 2];
-        if (prod === p) count++;
-      }
+setTimeout(() => {
+  console.log("Step 1");
 
+  setTimeout(() => {
+    console.log("Step 2");
 
-      if (i + 2 < n) {
-        let prod = matrix[i][j] * matrix[i + 1][j] * matrix[i + 2][j];
-        if (prod === p) count++;
-      }
+    setTimeout(() => {
+      console.log("Step 3");
 
-      if (i + 2 < n && j + 2 < m) {
-        let prod = matrix[i][j] * matrix[i + 1][j + 1] * matrix[i + 2][j + 2];
-        if (prod === p) count++;
-      }
+      setTimeout(() => {
+        console.log("Done");
+      }, 1000);
 
-      if (i + 2 < n && j - 2 >= 0) {
-        let prod = matrix[i][j] * matrix[i + 1][j - 1] * matrix[i + 2][j - 2];
-        if (prod === p) count++;
-      }
-    }
-  }
+    }, 1000);
 
-  console.log(count);
+  }, 1000);
 
-}
+}, 1000);
