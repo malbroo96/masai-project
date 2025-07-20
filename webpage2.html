@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sticky Header & Fixed Footer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background-color: steelblue;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.5em;
+      z-index: 1000;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: gray;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    main {
+      padding: 20px;
+      padding-bottom: 60px; /* Add space to avoid footer overlapping */
+      background-color: #f9f9f9;
+    }
+
+    p {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Sticky Header
+  </header>
+
+  <main>
+   <p><pre>
+   <p>In today’s rapidly evolving digital world, 
+    technology continues to play a pivotal role
+     in shaping our daily lives and transforming 
+     the way we interact, work, and learn. From the
+      advent of smartphones and social media to advancements
+       in artificial intelligence and cloud computing, every 
+       innovation pushes the boundaries of what is possible. 
+       Businesses are leveraging these tools to enhance 
+       productivity, improve customer experiences,
+        and make data-driven decisions. At the same time, 
+        individuals benefit from increased access to information,
+         connectivity, and convenience. However, with these
+          advancements come challenges—such as data privacy 
+          concerns, cybersecurity threats,
+           and the need for continuous learning. 
+           Education systems are adapting to prepare 
+           students for future careers, emphasizing 
+           critical thinking, digital literacy,
+            and adaptability. Governments and 
+            organizations around the world are
+             also working to bridge the digital 
+             divide, ensuring that people from 
+             all backgrounds have access to technology 
+             and the internet. As we look to the future, 
+             it’s clear that innovation will remain
+              a driving force of progress. Embracing 
+              change while being mindful of its impact
+               on society will be essential. Ultimately, 
+               technology should serve humanity—enhancing
+                our lives, solving real-world problems, 
+                and building a more connected and equitable 
+                world for future generations.
+
+   </pre></p>
+  </main>
+
+  <footer>
+    Fixed Footer © 2025
+  </footer>
+
+</body>
+</html>
