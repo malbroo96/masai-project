@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flex Direction </title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .flex-container {
+      display: flex;
+
+     
+      flex-direction: row;
+
+
+
+      gap: 15px;
+      border: 2px dashed steelblue;
+      padding: 20px;
+    }
+
+    .item {
+      background-color: lightcoral;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      flex: 1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Flex Direction</h2>
+  <p>Change <code>flex-direction</code> in CSS to switch layout between row and column.</p>
+
+  <div class="flex-container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+  </div>
+
+</body>
+</html>
