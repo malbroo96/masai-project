@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM intractive div </title>
+</head>
+<body>
+    <h2> DOM Manipulation Exercise</h2>
+
+
+<input type="text" id="colorinput" placeholder="Enter Color Name"/>
+<button id="BGbutton">Change Background</button>
+<br><br>
+<input type="text" id="textinput" placeholder="Enter text content">
+<button id="textButton">Update Text</button>
+
+
+<div id="myDiv"> this is the first content of the div</div> 
+
+
+
+
+<script>
+    const div =document.getElementById("myDiv");
+    const colorinput=document.getElementById("colorinput");
+    const textinput=document.getElementById("textinput");
+    const bgbutton=document.getElementById("BGbutton")
+    const textbutton=document.getElementById("textButton");
+
+
+
+
+function isvalidColor(color){
+    const s=new Option().style;
+    s.color=color;
+    return s.color !== '';
+}
+
+bgbutton.addEventListener("click",()=>{
+    const color=colorinput.value.trim();
+    if(isvalidColor(color)){
+        div.style.backgroundColor=color;
+    }else {
+        alert("Invalid color name!")
+    }
+})
+
+textbutton.addEventListener("click",()=>{
+    const text= textinput.value.trim();
+    if(text){
+        div.textContent=text;
+    }else{
+        alert("please enter some text!")
+    }
+});
+
+
+
+
+
+
+</script>
+
+
+    
+</body>
+</html>
