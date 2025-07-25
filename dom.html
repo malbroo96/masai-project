@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom MAnipulate</title>
+  <style>
+    .container {
+        padding:20px;
+        margin-top:10px;
+    }
+  </style>
+</head>
+<body>
+    <h1 id="mainheading">Hello guys</h1>
+    <p> this is para 1</p>
+    <p> this is para 2</p>
+    <p> this is para 3</p>
+    <div class="container">
+        <p> inside the container</p>
+    </div>
+    <script>
+        const heading =document.getElementById("mainheading")
+        heading.textContent=" welcome to the DOM world"
+
+         const allparagraph=document.getElementsByTagName("p");
+         for(let i=0 ;i<allparagraph.length;i++){
+            allparagraph[i].style.color="blue";
+         }
+    </script>
+    
+</body>
+</html>
