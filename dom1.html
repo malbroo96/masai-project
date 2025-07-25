@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM list</title>
+</head>
+<body>
+    <ul id="mylist">
+        <li>this is 1</li>
+        <li>this is 2</li>
+        <li>this is 3</li>
+    </ul>
+
+
+
+    <button id="bott"> Add Item</button>
+    <script>
+        const ul=document.querySelector("#mylist");
+        const button=document.querySelector("#bott");
+
+
+
+        button.addEventListener("click",()=>{
+            const newItem=document.createElement("li");
+            const itemCount=ul.children.length+1;
+            newItem.textContent=`New Item ${itemCount}`
+
+
+
+
+
+            if(itemCount %2===1){
+                newItem.style.fontWeight="bold";
+                newItem.style.color="blue";
+            }else{
+                newItem.style.fontStyle="italic";
+                newItem.style.color="red"
+            }
+
+
+            ul.appendChild(newItem);
+        })
+    </script>
+</body>
+</html>
