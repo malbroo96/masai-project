@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paragraph remover && adder</title>
+</head>
+<body>
+    <h1> paragraph Manger</h1>
+
+
+
+
+    <button id="addbtn"> Add paragraph</button>
+    <button id="removebtn"> remove last paragraph</button>
+
+
+
+
+    <div id="paragraphcontainer"></div>
+
+
+
+    <script>
+// connetcing with DOM using ID
+
+const addbtn=document.getElementById("addbtn")
+const removebtn=document.getElementById("removebtn");
+const container=document.getElementById("paragraphcontainer")
+
+
+addbtn.addEventListener("click",()=>{
+    const p=document.createElement("p");
+    p.textContent=`this is a new paragraph.`;
+    container.appendChild(p)   ;    //append to the container
+})
+
+
+
+removebtn.addEventListener("click",()=>{
+    const lastparagraph = container.lastElementChild;
+
+    if(lastparagraph){
+        container.removeChild(lastparagraph);// remove from the container
+
+    }else{
+        alert(`No paragraph to remove.`)
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+    
+</body>
+</html>
