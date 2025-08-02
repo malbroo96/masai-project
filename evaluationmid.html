@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>product dashboard</title>
+    <style>
+        .body {
+            grid-template-columns:25%,1fr
+
+        }
+        .card {
+            background: grey;
+            text-align: center;
+            border: 1px solid black;
+
+
+        }
+    </style>
 </head>
 <body>
-    <h1>dashboard</h1>
+    <h1>product dashboard</h1>
+
+   
+    <input placeholder="enter product name">
+    <button>search</button>
 
     <div id="products"></div>
  
@@ -39,6 +56,7 @@ containerdiv.innerHTML = '';
 
 products.forEach(p => {
     const div2 = document.createElement('div');
+    div2.className='card';
     div2.innerHTML = `
     <img src ="${p.thumbnail}" />
     <h5>${p.title}</h5>
