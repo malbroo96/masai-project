@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAbriwRxa38MMmCWQn0bM4uvCCd5ewhhWE",
+    authDomain: "library-49fb4.firebaseapp.com",
+    databaseURL: "https://library-49fb4-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "library-49fb4",
+    storageBucket: "library-49fb4.firebasestorage.app",
+    messagingSenderId: "909495889789",
+    appId: "1:909495889789:web:0db2cc33bddb24c6a22614",
+    measurementId: "G-LL0Y8C37QR"
+  };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const bookForm = document.getElementById("bookForm");
+      const bookList = document.getElementById("bookList");
+
+      bookForm.addEventListener("submit", (e) => {
+        // e.preventDefault();
+        const book = {
+          title: document.getElementById("title").value,
+          author: document.getElementById("author").value,
+          genre: document.getElementById("genre").value,
+          publishedYear: parseInt(document.getElementById("year").value),
+          available: document.getElementById("available").value === "true"
+        };
+
+        const bookRef = ref(db, "books/");
+        const newBookRef = push(bookRef);
+        set(newBookRef, book);
+
+        bookForm.reset();
+      });
+
+      function displayBooks() {
+        const bookRef = ref(db, "books/");
+        onValue(bookRef, (snapshot) => {
+          const data = snapshot.val();
+          bookList.innerHTML = "";
+          for (let id in data) {
+            const book = data[id];
+            const div = document.createElement("div");
+            div.className = "book";
+            div.innerHTML = `
+              <strong>${book.title}</strong> by ${book.author} <br>
+              Genre: ${book.genre}, Year: ${book.publishedYear}, Available: ${book.available} <br>
+              <button data-id="${id}" class="delete-btn">Delete</button>
+            `;
+            bookList.appendChild(div);
+          }
+        });
+      }
+
+      bookList.addEventListener("click", (e) => {
+        if (e.target.classList.contains("delete-btn")) {
+          const id = e.target.getAttribute("data-id");
+          const bookRef = ref(db, `books/${id}`);
+          remove(bookRef);
+        }
+      });
+
+      displayBooks();
+    });
+  </script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    form { margin-bottom: 20px; }
+    input, select { margin: 5px; padding: 5px; }
+    .book { border: 1px solid #ccc; padding: 10px; margin: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Library Management System</h1>
+
+  <form id="bookForm">
+    <input type="text" id="title" placeholder="Title" required />
+    <input type="text" id="author" placeholder="Author" required />
+    <input type="text" id="genre" placeholder="Genre" required />
+    <input type="number" id="year" placeholder="Year" required />
+    <select id="available">
+      <option value="true">Available</option>
+      <option value="false">Unavailable</option>
+    </select>
+    <button type="submit">Add Book</button>
+  </form>
+
+  <div id="bookList"></div>
+</body>
+</html>
