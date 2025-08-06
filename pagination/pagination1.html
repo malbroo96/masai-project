@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>to-do</title>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+
+    <input type="text" id="taskinput" placeholder="Enter Your Task" />
+    <button id="btn">Add Task</button>
+
+    <div id="todo-container"></div>
+    <div id="pagination-container"></div>
+
+  <script type="module">   
+  
+
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAbriwRxa38MMmCWQn0bM4uvCCd5ewhhWE",
+  authDomain: "library-49fb4.firebaseapp.com",
+  databaseURL: "https://library-49fb4-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "library-49fb4",
+  storageBucket: "library-49fb4.firebasestorage.app",
+  messagingSenderId: "909495889789",
+  appId: "1:909495889789:web:2630c2f160a8f3baa22614",
+  measurementId: "G-26BX84MT7M"
+};
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+
+
+
+let tasks = [];
+
+onValue(ref(database, "todos/"), (snapshot) => {
+  tasks = [];
+  snapshot.forEach(child => {
+    tasks.push(child.val());
+  });
+  renderTasks(currentPage);
+  renderPagination();
+});
+
+
+
+  const input = document.getElementById("taskinput");
+  const btn = document.getElementById("btn");
+  const container = document.getElementById("todo-container");
+  const pagination = document.getElementById("pagination-container");
+
+  let currentPage = 1;
+  const limit = 5;
+
+
+btn.addEventListener("click", () => {
+  const taskTitle = input.value.trim();
+  if (taskTitle) {
+    tasks.push({ title: taskTitle });
+
+    push(ref(database, "todos/"), { title: taskTitle });
+
+
+
+    input.value = "";
+    renderTasks(currentPage);
+    renderPagination();
+  }
+});
+
+
+
+;
+
+
+
+
+      input.value = "";
+      renderTasks(currentPage);
+      renderPagination();
+    ;
+
+  function renderTasks(page) {
+    container.innerHTML = "";
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    const paginated = tasks.slice(start, end);
+
+    paginated.forEach((todo, index) => {
+      const div = document.createElement("div");
+      div.textContent = `${start + index + 1}. ${todo.title}`;
+      container.appendChild(div);
+    });
+  }
+
+  function renderPagination() {
+    pagination.innerHTML = "";
+    const totalPages = Math.ceil(tasks.length / limit);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = i;
+      btn.addEventListener("click", () => {
+        currentPage = i;
+        renderTasks(currentPage);
+      });
+      pagination.appendChild(btn);
+    }
+  }
+
+  renderTasks(currentPage);
+  renderPagination();
+</script>
+  </body>
+</html>
