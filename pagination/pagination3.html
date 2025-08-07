@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infinite Scrolling</title>
+    <style>
+      body {
+        margin: 10px;
+        padding: 10px;
+        background: grey;
+        text-align: center;
+      }
+      h1 {
+        margin: 20px;
+      }
+      #gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+        padding: 20px;
+      }
+      #gallery img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      #gallery img:hover {
+        transform: scale(1.05);
+      }
+      #loader {
+        padding: 20px;
+        font-size: 18px;
+        color: lightgreen;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gallery"></div>
+    <div id="loader">Loading...</div>
+    <script>
+      const gallery = document.getElementById("gallery");
+      const loader = document.getElementById("loader");
+
+      let start = 0;
+      const limit = 10;
+      let loading = false;
+
+      async function fetchimages(start, limit) {
+        try {
+          const res = await fetch(
+            "https://jsonplaceholder.typicode.com/photos"
+          );
+          const data = await res.json();
+          console.log("fetched data:", data);
+          return data;
+        } catch (error) {
+          console.error("error fetching images:", error);
+          return [];
+        }
+      }
+
+      function renderimages(images) {
+        images.forEach((image) => {
+          const img = document.createElement("img");
+          img.album = image.albumId;
+          img.id = image.id;
+          img.alt = image.title;
+          img.url = image.url;
+          img.src = image.thumbnailUrl;
+          gallery.appendChild(img);
+        });
+      }
+
+      async function loadmoreimages() {
+        if (loading) return;
+        loading = true;
+        loader.style.display = "block";
+        const images = await fetchimages(start, limit);
+        renderimages(images);
+        start += limit;
+
+        loader.style.display = "none";
+        loading = false;
+      }
+
+      window.addEventListener("scroll", () => {
+        if (
+          window.innerHeight + window.scrollY >=
+          document.body.offsetHeight - 100
+        ) {
+          loadmoreimages();
+        }
+      });
+
+      loadmoreimages();
+    </script>
+  </body>
+</html>
