@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Auth & Dashboard</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+        margin: 0;
+        padding: 0;
+      }
+      .auth-container {
+        max-width: 400px;
+        margin: 60px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        padding: 32px 24px;
+      }
+      .auth-container h2 {
+        margin-bottom: 24px;
+        color: #4f46e5;
+      }
+      .auth-container input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        border: 1px solid #c7d2fe;
+        border-radius: 6px;
+        font-size: 16px;
+      }
+      .auth-container button {
+        width: 100%;
+        padding: 10px;
+        background: #6366f1;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .auth-container button:hover {
+        background: #4f46e5;
+      }
+      #registerPage,
+      #loginPage,
+      #dashboardPage {
+        display: none;
+      }
+      #dashboardPage {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        padding: 32px 24px;
+      }
+      #dashboardPage h2 {
+        color: #6366f1;
+        margin-bottom: 24px;
+      }
+      #products {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+      .product {
+        border: 1px solid #e0e7ff;
+        padding: 18px 12px;
+        background: #f3f4f6;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: box-shadow 0.2s;
+      }
+      .product:hover {
+        box-shadow: 0 6px 24px rgba(99,102,241,0.18);
+      }
+      .product h4 {
+        font-size: 18px;
+        color: #4f46e5;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .product img {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      }
+      .product p {
+        font-size: 16px;
+        color: #6366f1;
+        font-weight: bold;
+        margin: 0;
+      }
+      #dashboardPage button {
+        width: 100%;
+        padding: 10px;
+        background: #6366f1;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 24px;
+      }
+      #dashboardPage button:hover {
+        background: #4f46e5;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Register Page -->
+    <div id="registerPage" class="auth-container">
+      <h2>Register</h2>
+      <input type="text" id="regName" placeholder="Name" /><br />
+      <input type="email" id="regEmail" placeholder="Email" /><br />
+      <input type="password" id="regPassword" placeholder="Password" /><br />
+      <button onclick="register()">Register</button>
+      <p>
+        Already have an account?
+        <a href="#" onclick="showPage('loginPage')">Login here</a>
+      </p>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="auth-container">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" /><br />
+      <input type="password" id="loginPassword" placeholder="Password" /><br />
+      <button onclick="login()">Login</button>
+      <p>
+        Don't have an account?
+        <a href="#" onclick="showPage('registerPage')">Register here</a>
+      </p>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage">
+      <h2>Dashboard</h2>
+      <div id="products"></div>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Firebase SDK v12+ (using ES modules) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+      import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAbriwRxa38MMmCWQn0bM4uvCCd5ewhhWE",
+        authDomain: "library-49fb4.firebaseapp.com",
+        databaseURL: "https://library-49fb4-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "library-49fb4",
+        storageBucket: "library-49fb4.firebasestorage.app",
+        messagingSenderId: "909495889789",
+        appId: "1:909495889789:web:465ed1398026993aa22614",
+        measurementId: "G-PB19BTX48M"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getDatabase(app);
+
+      // Update registration, login, and dashboard logic to use v12+ database API
+      window.showPage = function(pageId) {
+        document.getElementById("registerPage").style.display = "none";
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("dashboardPage").style.display = "none";
+        document.getElementById(pageId).style.display = "block";
+      };
+
+      window.register = async function() {
+        let name = document.getElementById("regName").value;
+        let email = document.getElementById("regEmail").value;
+        let password = document.getElementById("regPassword").value;
+
+        if (!name || !email || !password) {
+          alert("Please fill all fields");
+          return;
+        }
+
+        let userId = Date.now();
+        try {
+          await set(ref(db, "users/" + userId), { name, email, password });
+          alert("Registration Successful! Please log in.");
+          showPage("loginPage");
+        } catch (err) {
+          alert(err.message);
+        }
+      };
+
+      window.login = async function() {
+        let email = document.getElementById("loginEmail").value;
+        let password = document.getElementById("loginPassword").value;
+        try {
+          const snapshot = await get(child(ref(db), "users"));
+          const users = snapshot.exists() ? snapshot.val() : {};
+          let found = false;
+          for (let id in users) {
+            if (
+              users[id].email === email &&
+              users[id].password === password
+            ) {
+              found = true;
+              localStorage.setItem("loggedInUser", id);
+              loadDashboard();
+              break;
+            }
+          }
+          if (!found) {
+            alert("Wrong credentials! Try again.");
+          }
+        } catch (err) {
+          alert("Error logging in: " + err.message);
+        }
+      };
+
+      window.loadDashboard = function() {
+        if (!localStorage.getItem("loggedInUser")) {
+          showPage("loginPage");
+          return;
+        }
+        showPage("dashboardPage");
+        fetch("https://fakestoreapi.com/products")
+          .then((res) => res.json())
+          .then((data) => {
+            let productsDiv = document.getElementById("products");
+            productsDiv.innerHTML = "";
+            data.forEach((p) => {
+              let div = document.createElement("div");
+              div.className = "product";
+              div.innerHTML = `<h4>${p.title}</h4><img src="${p.image}"><p>$${p.price}</p>`;
+              productsDiv.appendChild(div);
+            });
+          });
+      };
+
+      window.logout = function() {
+        localStorage.removeItem("loggedInUser");
+        showPage("loginPage");
+      };
+
+      window.onload = function () {
+        if (localStorage.getItem("loggedInUser")) {
+          loadDashboard();
+        } else {
+          showPage("registerPage");
+        }
+      };
+    </script>
+
+    </script>
+  </body>
+</html>
