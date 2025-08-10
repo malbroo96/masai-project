@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Slider</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      img {
+        width: 600px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Image Slider</h2>
+    <img
+      id="slider"
+      src="https://picsum.photos/600/400?random"
+      alt="Random Image"
+    />
+    <br />
+    <button id="prev">Previous</button>
+    <button id="next">Next</button>
+    <div id="Slide-no">Slide 1</div>
+    <script>
+      let slideNumber = 1;
+      let lastClickTime = 0;
+      let clickCount = 0;
+
+      const slider = document.getElementById("slider");
+      const slideText = document.getElementById("Slide-no");
+
+      function changeImage(direction) {
+        const currentTime = Date.now();
+        clickCount++;
+
+        if (clickCount > 3 && currentTime - lastClickTime < 1000) {
+          alert("chill chill, loading it !!!!");
+          return;
+        }
+
+        if (currentTime - lastClickTime >= 1000) {
+          lastClickTime = currentTime;
+          clickCount = 1;
+          slideNumber += direction;
+          if (slideNumber < 1) slideNumber = 1;
+          slider.src = `https://picsum.photos/600/400?random=${Math.random()}`;
+          slideText.textContent = `Slide ${slideNumber}`;
+        }
+      }
+
+      document
+        .getElementById("next")
+        .addEventListener("click", () => changeImage(1));
+      document
+        .getElementById("prev")
+        .addEventListener("click", () => changeImage(-1));
+    </script>
+  </body>
+</html>
