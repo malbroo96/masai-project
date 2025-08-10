@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounced Movie Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input {
+            width: 300px;
+            padding: 8px;
+            font-size: 16px;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        .movie {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Movie Search (Debounced)</h2>
+    <input type="text" id="search" placeholder="Type movie name..." />
+    <div id="results"></div>
+
+    <script>
+        const API_KEY = "413ad97e"; 
+        let debounceTimer;
+
+        document.getElementById("search").addEventListener("input", function () {
+            clearTimeout(debounceTimer); 
+            const query = this.value.trim();
+
+            if (query === "") {
+                document.getElementById("results").innerHTML = "";
+                return;
+            }
+
+            debounceTimer = setTimeout(() => {
+                fetchMovies(query);
+            }, 500);
+        });
+
+        async function fetchMovies(searchQuery) {
+            try {
+                const url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(searchQuery)}`;
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (data.Response === "True" && Array.isArray(data.Search)) {
+                    displayMovies(data.Search);
+                } else {
+                    document.getElementById("results").innerHTML = `<p>No results found</p>`;
+                }
+            } catch (error) {
+                document.getElementById("results").innerHTML = `<p>Error fetching movies</p>`;
+                console.error("Error fetching movies:", error);
+            }
+        }
+
+        function displayMovies(movies) {
+            const resultsDiv = document.getElementById("results");
+            if (!movies || movies.length === 0) {
+                resultsDiv.innerHTML = `<p>No results found</p>`;
+                return;
+            }
+            resultsDiv.innerHTML = movies
+                .map(movie => `<div class="movie">${movie.Title} (${movie.Year})</div>`)
+                .join("");
+        }
+    </script>
+</body>
+</html>

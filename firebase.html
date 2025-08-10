@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Mangaement System</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h1>Library Mangaement System</h1>
+    <div>
+        <h3>filter & sort books</h3>
+        <input id="filterGenere" placeholder="Genere"/>
+        <select id="sortBy">
+            <option value="">Sort By</option> 
+            <option value="tittle">Tittle</option>
+            <option value="author">Author</option>
+            <option value="publishedyear">Published Year</option>
+
+        </select>
+        <button onclick="applyfilter()">Apply</button>
+    </div>
+
+
+
+
+    <div>
+        <h3> Add Book</h3>
+        <input id="title" placeholder="Title"/>
+        <input id="author"placeholder="Author"/>
+        <input id="genre"placeholder="Genere"/>
+        <input id="year"placeholder="Year"/>
+        <button onclick="addbook()">Add </button>
+
+    </div>
+
+
+
+
+    <h3> Book List</h3>
+    <div id="booklist"></div>
+    <div class="pagination" id="pagination"></div>
+
+
+    <script>
+        // sonthing from firebase
+
+        function addbook(){
+            const title=document.getElementById("title").value.trim();
+            const author=document.getElementById("author").value.trim()
+            const genre=document.getElementById("genre").value.trim();
+            const year=document.getElementById("year").value.trim();
+
+
+
+            if(!title || !author || !genre || isNaN(year)) {
+                alert("All Feilds Are Required")
+                return;
+            }
+            const newBook={
+                title,
+                author,
+                genre,
+                publishedyear:year,
+                available:true
+            };
+
+
+            function clearinput(){
+                document.getElementById("title").value=""
+                document.getElementById("author").value=""
+                document.getElementById("genre").value=""
+                document.getElementById("year").value=""
+            }
+
+            function applyfilter(){
+                state.genre=document.getElementById("filtergenre").value;
+                state.sort=documetn.getElementById("sortby").value;
+                state.page=1;
+                localStorage.setItem("filter",JSON.stringfy(state));
+                loadbook();
+            }
+       if(state.genre){
+        books=books.flter(b=>b.genre.toLowerCase().includes(state.genre.toLowerCase()));
+
+       }
+       if(state.sort){
+        books.sort((a,b)=>{
+            if(state.sort==="publishedyear")return a[state.sort]-b[state.sort];
+            return a[state.sort].localCompare(b[state.sort]);
+        });
+       }
+            
+        }
+    </script>
+    
+</body>
+</html>
