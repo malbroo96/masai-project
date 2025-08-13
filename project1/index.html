@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick & Morty Wiki</title>
+    <link rel="stylesheet" href="style.css"/>
+
+</head>
+<body>
+    <header  class="topbar">
+        <h1> Rick & Morty Wiki</h1>
+        <div class="controls" >
+            <button id="themetoggle" aria-label="toggles theme">Switch</button>"
+            <button id="randombtn">Random Character</button>
+        </div>
+    </header>
+
+
+
+
+    <main class="container">
+        <selection id="gallery" class="grid">
+
+
+
+        </selection>
+
+
+
+
+        <nav class="pagination">
+            <button id="previousbtn"class="pagebtn" disabled>Previous</button>
+            <span id="pageinfo">page 1</span>
+            <button id="nextbtn" class="pagebtn"disabled>Next</button>
+        </nav>
+    </main>
+
+
+
+    <footer class="sitefooter">
+        <div id="clock">--:--:--Day Month DD, YYYY</div>
+    </footer>
+
+
+    <script src="app.js" type="module"></script>
+    
+</body>
+</html>

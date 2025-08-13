@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>codekeeper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: grey
+        }
+        h1 {
+            color: black;}
+        h2 {
+            color:violet;
+        }
+        form {
+            margin-bottom: 20px;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+        input{
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid black;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: rgb(55, 55, 69);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Code Keeper</h1>
+    <form id="form">
+        <input type="text" placeholder="enter your code" id="code" required>
+        <button type="submit">save</button>
+    </form>
+
+
+    <h2> My Code</h2>
+    <div id="list"></div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

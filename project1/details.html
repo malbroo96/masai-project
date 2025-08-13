@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>details</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1 id="charname">Character</h1>
+      <div class="controls">
+        <button id="toggeletheme" aria-label="toggle theme">Switch</button>
+        <button id="openapibtn">Open Api</button>
+      </div>
+    </header>
+
+    <main class="container details">
+      <section id="detailscard">
+        <img id="charimage" src="" alt="character image" />
+        <div class="detailsinfo">
+          <p><strong>Status:</strong> <span id="status"></span></p>
+          <p><strong>Species:</strong> <span id="species"></span></p>
+          <p><strong>Type:</strong> <span id="type"></span></p>
+          <p><strong>Gender:</strong> <span id="gender"></span></p>
+          <p><strong>Origin:</strong> <span id="origin"></span></p>
+          <p><strong>Location:</strong> <span id="location"></span></p>
+          <p>
+            <strong>Episode appearances:</strong> <span id="episodes"></span>
+          </p>
+          <p><strong>Created:</strong> <span id="created"></span></p>
+        </div>
+      </section>
+    </main>
+
+
+    <footer class="sitefooter">
+        <div id="clock">--:--:-- Day Month DD ,YYYY</div>
+    </footer>
+
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
