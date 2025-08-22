@@ -1,0 +1,124 @@
+/* Reset + Fonts */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff7e00, #ffd700); /* Orange → Gold */
+}
+
+/* Main container */
+.container {
+  width: 380px;
+}
+
+/* Glassmorphism Box */
+.form-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px 25px;
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: 0.3s ease-in-out;
+}
+
+/* Toggle buttons */
+.toggle-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.toggle-box button {
+  flex: 1;
+  padding: 12px;
+  cursor: pointer;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+.toggle-box button:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.toggle-box button:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.toggle-box button.active {
+  background: linear-gradient(135deg, #ff9f43, #ffcd3c); /* Orange → Golden */
+  color: #222;
+  font-weight: bold;
+  box-shadow: 0 3px 10px rgba(255, 166, 0, 0.4);
+}
+
+/* Forms */
+.form {
+  display: none;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.form.active {
+  display: flex;
+}
+
+form h2 {
+  text-align: center;
+  color: #fff8dc; /* Light gold */
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Inputs */
+form input {
+  margin: 10px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+form input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Button */
+form button {
+  margin-top: 15px;
+  padding: 12px;
+  background: linear-gradient(135deg, #ff7e00, #ffd700); /* Orange → Gold */
+  color: #222;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+form button:hover {
+  background: linear-gradient(135deg, #ff9f43, #ffdd57);
+  color: black;
+}
+
+/* Smooth fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

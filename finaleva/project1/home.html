@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+  <nav class="navbar">
+  <ul class="nav-left">
+    <li><a href="home.html">Home</a></li>
+
+    <li><a href="tracker.html">Personal Finance</a></li>
+    <li><a href="invest.html">Investments</a></li>
+  </ul>
+  <ul class="nav-right">
+    <li><a href="#" id="logoutBtn">Logout</a></li>
+  </ul>
+</nav>
+
+
+
+    <h1>`Welcome to Home </h1>
+
+
+<!-- for news -->
+
+    <div id="news-section">
+  <h2>Finance News</h2>
+  <div id="news-list"></div>
+</div>
+
+<script>
+  const apiKey = "pub_09def1e856a84ba3beb02987df7bac53";
+  const url = "https://newsdata.io/api/1/news?apikey=pub_1234567890abcdef&category=business&language=en"
+";
+
+  async function loadNews() {
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      const newsBox = document.getElementById("news-list");
+
+      data.results.slice(0, 5).forEach(article => {
+        const div = document.createElement("div");
+        div.className = "news-card";
+        div.innerHTML = `
+          <h3>${article.title}</h3>
+          <p>${article.description || ""}</p>
+          <a href="${article.link}" target="_blank">Read more</a>
+        `;
+        newsBox.appendChild(div);
+      });
+    } catch (err) {
+      console.error("Failed to load news:", err);
+    }
+  }
+
+  loadNews();
+</script>
+
+
+    <script type="module">
+      import {
+        getAuth,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCjJGfH2i_WSlQllKTpIF8zB4yLoBVyCwo",
+        authDomain: "wealthy-cac7b.firebaseapp.com",
+        projectId: "wealthy-cac7b",
+        storageBucket: "wealthy-cac7b.appspot.com",
+        messagingSenderId: "819937615061",
+        appId: "1:819937615061:web:0b36637c108535a56e565c",
+        measurementId: "G-9GF1PS2LHZ",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Redirect to login if not authenticated
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          window.location.href = "index.html";
+        }
+      });
+
+      // Logout
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        signOut(auth)
+          .then(() => {
+            alert("Logged out!");
+            window.location.href = "index.html";
+          })
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      });
+    </script>
+  </body>
+</html>

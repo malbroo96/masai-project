@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/Register Toggle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-box">
+      <!-- Buttons to toggle -->
+      <div class="toggle-box">
+        <button id="loginBtn" class="active">Login</button>
+        <button id="registerBtn">Register</button>
+      </div>
+
+      <!-- Login form -->
+      <form id="loginForm" class="form active">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+
+      <!-- Register form -->
+      <form id="registerForm" class="form">
+        <h2>Register</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="email" id="registerEmail" placeholder="Email" required>
+        <input type="password" id="registerPassword" placeholder="Password" required>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js"; 
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    // ✅ Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCjJGfH2i_WSlQllKTpIF8zB4yLoBVyCwo",
+      authDomain: "wealthy-cac7b.firebaseapp.com",
+      projectId: "wealthy-cac7b",
+      storageBucket: "wealthy-cac7b.appspot.com",
+      messagingSenderId: "819937615061",
+      appId: "1:819937615061:web:0b36637c108535a56e565c",
+      measurementId: "G-9GF1PS2LHZ"
+    };
+
+    // ✅ Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Toggle Forms
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+
+    loginBtn.addEventListener("click", () => {
+      loginForm.classList.add("active");
+      registerForm.classList.remove("active");
+      loginBtn.classList.add("active");
+      registerBtn.classList.remove("active");
+    });
+
+    registerBtn.addEventListener("click", () => {
+      registerForm.classList.add("active");
+      loginForm.classList.remove("active");
+      registerBtn.classList.add("active");
+      loginBtn.classList.remove("active");
+    });
+
+    // ✅ Register
+    registerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("registerEmail").value;
+      const password = document.getElementById("registerPassword").value;
+      console.log("Registering user:", email, "this is coming from the index.html file");
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            console.log("User registered successfully");
+          alert("Registration successful!");
+        })
+        .catch((error) => {
+            console.error("Registration failed:", error);
+          alert("Error: " + error.message);
+        });
+    });
+
+    // ✅ Login
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("Login successful!");
+          window.location.href = "home.html"; // ✅ redirect
+        })
+        .catch((error) => {
+          alert("Login failed: " + error.message);
+        });
+    });
+  </script>
+</body>
+</html>
+
