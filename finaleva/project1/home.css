@@ -39,3 +39,101 @@ body {
 .navbar li a:hover {
   color: black;
 }
+
+
+
+
+
+
+/* News Section */
+.news-section {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Individual News Card */
+.news-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+}
+
+/* News Image */
+.news-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Card Content */
+.news-content {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-content h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.news-content p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.news-content a {
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.news-content a:hover {
+  color: #005999;
+}
+
+/* Pagination (Load More Button) */
+.pagination {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.pagination button {
+  background: #0077cc;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination button:hover {
+  background: #005999;
+}
+
+/* Infinite Scroll Loader */
+.loader {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1rem;
+  color: #666;
+}

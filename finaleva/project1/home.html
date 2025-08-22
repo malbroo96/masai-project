@@ -7,59 +7,55 @@
     <link rel="stylesheet" href="home.css" />
   </head>
   <body>
-  <nav class="navbar">
-  <ul class="nav-left">
-    <li><a href="home.html">Home</a></li>
+    <nav class="navbar">
+      <ul class="nav-left">
+        <li><a href="home.html">Home</a></li>
 
-    <li><a href="tracker.html">Personal Finance</a></li>
-    <li><a href="invest.html">Investments</a></li>
-  </ul>
-  <ul class="nav-right">
-    <li><a href="#" id="logoutBtn">Logout</a></li>
-  </ul>
-</nav>
+<li><a href="personalfinance.html">Personal Finance</a></li>
 
+        <li><a href="invest.html">Investments</a></li>
+      </ul>
+      <ul class="nav-right">
+        <li><a href="#" id="logoutBtn">Logout</a></li>
+      </ul>
+    </nav>
 
+    <h1>`Welcome to Home</h1>
 
-    <h1>`Welcome to Home </h1>
-
-
-<!-- for news -->
+    <!-- for news -->
 
     <div id="news-section">
-  <h2>Finance News</h2>
-  <div id="news-list"></div>
-</div>
+      <h2>Finance News</h2>
+      <div id="news-list"></div>
+    </div>
 
-<script>
-  const apiKey = "pub_09def1e856a84ba3beb02987df7bac53";
-  const url = "https://newsdata.io/api/1/news?apikey=pub_1234567890abcdef&category=business&language=en"
-";
+    <script>
+        const apiKey = "pub_09def1e856a84ba3beb02987df7bac53";
+        const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&category=business&language=en`;
 
-  async function loadNews() {
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      const newsBox = document.getElementById("news-list");
+        async function loadNews() {
+          try {
+            const res = await fetch(url);
+            const data = await res.json();
+            const newsBox = document.getElementById("news-list");
 
-      data.results.slice(0, 5).forEach(article => {
-        const div = document.createElement("div");
-        div.className = "news-card";
-        div.innerHTML = `
-          <h3>${article.title}</h3>
-          <p>${article.description || ""}</p>
-          <a href="${article.link}" target="_blank">Read more</a>
-        `;
-        newsBox.appendChild(div);
-      });
-    } catch (err) {
-      console.error("Failed to load news:", err);
-    }
-  }
+            data.results.slice(0, 5).forEach(article => {
+              const div = document.createElement("div");
+              div.className = "news-card";
+              div.innerHTML = `
+                <h3>${article.title}</h3>
+                <p>${article.description || ""}</p>
+                <a href="${article.link}" target="_blank">Read more</a>
+              `;
+              newsBox.appendChild(div);
+            });
+          } catch (err) {
+            console.error("Failed to load news:", err);
+          }
+        }
 
-  loadNews();
-</script>
-
+        loadNews();
+    </script>
 
     <script type="module">
       import {

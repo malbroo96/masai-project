@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Finance Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .finance-form {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .finance-form h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .charts {
+      max-width: 700px;
+      margin: 30px auto;
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    canvas {
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Finance Form -->
+  <div class="finance-form">
+    <h2>Personal Finance Tracker</h2>
+    <form id="financeForm">
+      <label>Salary:
+        <input type="number" id="salary" required>
+      </label>
+      <label>Fixed Expenses:
+        <input type="number" id="fixed" required>
+      </label>
+      <label>Variable Expenses:
+        <input type="number" id="variable" required>
+      </label>
+      <label>Miscellaneous:
+        <input type="number" id="misc" required>
+      </label>
+      <button type="submit">Save & Generate Chart</button>
+    </form>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts">
+    <h3>Your Spending Breakdown</h3>
+    <canvas id="myChart" width="400" height="200"></canvas>
+    <h3>Ideal Reference (50-30-20 Rule)</h3>
+    <canvas id="refChart" width="400" height="200"></canvas>
+  </div>
+
+  <!-- Chart.js -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCjJGfH2i_WSlQllKTpIF8zB4yLoBVyCwo",
+    authDomain: "wealthy-cac7b.firebaseapp.com",
+    projectId: "wealthy-cac7b",
+    storageBucket: "wealthy-cac7b.appspot.com",
+    messagingSenderId: "819937615061",
+    appId: "1:819937615061:web:0b36637c108535a56e565c",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  const ctx = document.getElementById("myChart").getContext("2d");
+  const refCtx = document.getElementById("refChart").getContext("2d");
+  let myChart;
+
+  // Reference chart (50/30/20 rule)
+  new Chart(refCtx, {
+    type: "pie",
+    data: {
+      labels: ["Needs (50%)", "Wants (30%)", "Investments (20%)"],
+      datasets: [{
+        data: [50, 30, 20],
+        backgroundColor: ["#ff9933", "#ffd700", "#4CAF50"]
+      }]
+    }
+  });
+
+  // Make sure we know if user is logged in
+  let currentUser = null;
+  onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+  });
+
+  // Handle form submission
+  document.getElementById("financeForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!currentUser) {
+      alert("Please login first!");
+      return;
+    }
+
+    const salary = Number(document.getElementById("salary").value);
+    const fixed = Number(document.getElementById("fixed").value);
+    const variable = Number(document.getElementById("variable").value);
+    const misc = Number(document.getElementById("misc").value);
+    const remaining = salary - (fixed + variable + misc);
+
+    const uid = currentUser.uid;
+    const now = new Date();
+    const month = now.toLocaleString("default", { month: "long", year: "numeric" });
+
+    await addDoc(collection(db, "users", uid, "finance"), {
+      salary, fixed, variable, misc, remaining, month,
+      createdAt: now
+    });
+
+    alert("Data saved successfully!");
+
+    // Generate chart
+    if (myChart) myChart.destroy(); // destroy old chart
+    myChart = new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: ["Fixed", "Variable", "Misc", "Remaining (Savings/Investments)"],
+        datasets: [{
+          data: [fixed, variable, misc, remaining],
+          backgroundColor: ["#ff9933", "#ffd700", "#FF6347", "#4CAF50"]
+        }]
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
