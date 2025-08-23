@@ -64,13 +64,18 @@ nav .logo span {
 
 
 /* News Section */
-.news-section {
-  max-width: 1000px;
+#news-section {
+  max-width: 1200px;
   margin: 2rem auto;
-  padding: 1rem;
+  padding: 0 1rem;
+}
+
+#news-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  row-gap: 3rem;
+  column-gap: 2rem;
+  padding: 1rem;
 }
 
 /* Individual News Card */
@@ -82,6 +87,8 @@ nav .logo span {
   transition: transform 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  height: 100%;
 }
 
 .news-card:hover {
@@ -91,17 +98,54 @@ nav .logo span {
 /* News Image */
 .news-card img {
   width: 100%;
-  height: 180px;
+  max-height: 200px;
   object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* No Image Placeholder */
+.no-image {
+  width: 100%;
+  height: 200px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px dashed #ddd;
 }
 
 /* Card Content */
-.news-content {
-  padding: 1rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.news-card h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: #333;
+  line-height: 1.4;
+}
+
+.news-card p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0.5rem 0;
+  flex-grow: 1;
+}
+
+.news-card a {
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 1rem;
+  transition: color 0.2s;
+}
+
+.news-card a:hover {
+  color: #005999;
 }
 
 .news-content h3 {
@@ -154,4 +198,31 @@ nav .logo span {
   margin: 1rem 0;
   font-size: 1rem;
   color: #666;
+}
+
+/* Load More Button Styling */
+.load-more-btn {
+  background: linear-gradient(90deg, orange, goldenrod);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.load-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(90deg, goldenrod, orange);
+}
+
+.load-more-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }

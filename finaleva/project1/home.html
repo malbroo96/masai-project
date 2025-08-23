@@ -32,32 +32,122 @@
     <div id="news-section">
       <h2>Finance News</h2>
       <div id="news-list"></div>
+      <div style="display: flex; justify-content: center; margin: 2rem 0">
+        <button id="loadMoreBtn" class="load-more-btn" style="display: none">
+          Load More
+        </button>
+      </div>
     </div>
 
     <script>
       const apiKey = "pub_09def1e856a84ba3beb02987df7bac53";
-      const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&category=business&language=en`;
+      const baseUrl = `https://newsdata.io/api/1/news?apikey=${apiKey}&category=business&language=en`;
+
+      let nextPageToken = null;
+      let allArticles = [];
+
+      function displayArticles(articles) {
+        const newsBox = document.getElementById("news-list");
+        articles?.forEach((article) => {
+          const div = document.createElement("div");
+          div.className = "news-card";
+          div.innerHTML = `
+              ${
+                article.image_url
+                  ? `<img src="${article.image_url}" alt="${article.title}">`
+                  : `<div class="no-image">No Image Available</div>`
+              }
+              <h3>${article.title}</h3>
+              <p>${article.description?.slice(0, 500) || ""}</p>
+              <a href="${article.link}" target="_blank">Read more</a>
+            `;
+          newsBox.appendChild(div);
+        });
+
+        // Show/hide load more button based on nextPageToken
+        const loadMoreBtn = document.getElementById("loadMoreBtn");
+        loadMoreBtn.style.display = nextPageToken ? "block" : "none";
+      }
+
+      async function fetchNews(pageToken = null) {
+        try {
+          const url = pageToken ? `${baseUrl}&page=${pageToken}` : baseUrl;
+
+          const res = await fetch(url);
+          const data = await res.json();
+
+          if (data.status === "success") {
+            nextPageToken = data.nextPage;
+            return data.results;
+          }
+          return [];
+        } catch (err) {
+          console.error("Failed to fetch news:", err);
+          return [];
+        }
+      }
 
       async function loadNews() {
         try {
-          const res = await fetch(url);
-          const data = await res.json();
-          const newsBox = document.getElementById("news-list");
+          // Check if data exists in local storage
+          const cachedNews = localStorage.getItem("news");
+          let articles;
 
-          data.results.slice(0, 5).forEach((article) => {
-            const div = document.createElement("div");
-            div.className = "news-card";
-            div.innerHTML = `
-                <h3>${article.title}</h3>
-                <p>${article.description || ""}</p>
-                <a href="${article.link}" target="_blank">Read more</a>
-              `;
-            newsBox.appendChild(div);
-          });
+          if (cachedNews) {
+            const cached = JSON.parse(cachedNews);
+            // Validate cached data has articles array and it's not empty
+            if (
+              cached.articles &&
+              Array.isArray(cached.articles) &&
+              cached.articles.length > 0
+            ) {
+              articles = cached.articles;
+              nextPageToken = cached.nextPageToken;
+            } else {
+              // If cached data is invalid, fetch new data
+              articles = await fetchNews();
+            }
+          } else {
+            articles = await fetchNews();
+          }
+
+          // Save to local storage
+          localStorage.setItem(
+            "news",
+            JSON.stringify({
+              articles,
+              nextPageToken,
+            })
+          );
+
+          allArticles = articles;
+          console.log(allArticles);
+          displayArticles(articles);
         } catch (err) {
           console.error("Failed to load news:", err);
         }
       }
+
+      // Load More button click handler
+      document
+        .getElementById("loadMoreBtn")
+        .addEventListener("click", async () => {
+          if (nextPageToken) {
+            const newArticles = await fetchNews(nextPageToken);
+            allArticles = [...allArticles, ...newArticles];
+
+            // Update local storage with new articles
+            localStorage.setItem(
+              "news",
+              JSON.stringify({
+                articles: allArticles,
+                nextPageToken,
+              })
+            );
+
+            displayArticles(newArticles);
+          }
+        });
 
       loadNews();
     </script>
