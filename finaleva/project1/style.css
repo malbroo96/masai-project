@@ -11,7 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #ff7e00, #ffd700); /* Orange → Gold */
+  background: linear-gradient(135deg, #eeb071, #ffd700); /* Orange → Gold */
 }
 
 /* Main container */

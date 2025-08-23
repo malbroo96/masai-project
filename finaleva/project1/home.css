@@ -41,6 +41,24 @@ body {
 }
 
 
+nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+nav .logo img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%; /* makes it circular */
+  object-fit: cover;
+}
+
+nav .logo span {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
 
 
 

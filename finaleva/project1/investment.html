@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Referral Links</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f8f9fa;
+      }
+
+      /* Navbar */
+
+      .navbar {
+        display: flex;
+        justify-content: space-between; /* pushes left and right sections apart */
+        align-items: center;
+        background: linear-gradient(90deg, orange, goldenrod);
+        padding: 10px 20px;
+      }
+
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar li {
+        margin: 0 15px;
+      }
+
+      .navbar a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+
+      .navbar a:hover {
+        color: #ffeb99; /* light golden on hover */
+      }
+
+      .navbar li a:hover {
+        color: black;
+      }
+      nav .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      nav .logo img {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%; /* makes it circular */
+        object-fit: cover;
+      }
+
+      nav .logo span {
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      /* Container */
+      .referral-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+      }
+      .referral-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .referral-card h3 {
+        margin-bottom: 15px;
+        color: #333;
+      }
+      .referral-card a {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #28a745;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+      .referral-card a:hover {
+        background: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">
+        <img
+          src="assets/WhatsApp Image 2025-08-19 at 17.39.45_8117ac4f.jpg"
+          alt="Wealthy Logo"
+        />
+        <span>Wealthy</span>
+      </div>
+
+      <ul class="nav-left">
+        <li><a href="home.html">Home</a></li>
+
+        <li><a href="personalfinance.html">Personal Finance</a></li>
+
+        <li><a href="investment.html">Investments</a></li>
+      </ul>
+      <ul class="nav-right">
+        <li><a href="#" id="logoutBtn">Logout</a></li>
+      </ul>
+    </nav>
+
+    <script type="module">
+      import {
+        getAuth,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCjJGfH2i_WSlQllKTpIF8zB4yLoBVyCwo",
+        authDomain: "wealthy-cac7b.firebaseapp.com",
+        projectId: "wealthy-cac7b",
+        storageBucket: "wealthy-cac7b.appspot.com",
+        messagingSenderId: "819937615061",
+        appId: "1:819937615061:web:0b36637c108535a56e565c",
+        measurementId: "G-9GF1PS2LHZ",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Redirect to login if not authenticated
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          window.location.href = "index.html";
+        }
+      });
+
+      // Logout
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        signOut(auth)
+          .then(() => {
+            alert("Logged out!");
+            window.location.href = "index.html";
+          })
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      });
+    </script>
+
+    <!-- Referral Section -->
+    <div class="referral-container">
+      <div class="referral-card">
+        <h3>Open Demat Account</h3>
+        <a href="https://upstox.onelink.me/0H1s/PL96" target="_blank"
+          >Open Now</a
+        >
+      </div>
+
+      <div class="referral-card">
+        <h3>Join Google Pay</h3>
+        <a href=" https://g.co/payinvite/KY2Qa " target="_blank">Join Now</a>
+      </div>
+
+      <div class="referral-card">
+        <h3>Buy Digital Gold</h3>
+        <a href="https://mydigigold.com/sign-up?ref=IBCJA15022" target="_blank"
+          >Start Now</a
+        >
+      </div>
+
+      <div class="referral-card">
+        <h3>Invest in Mutual Funds</h3>
+        <a
+          href="https://groww.in/mutual-funds/parag-parikh-long-term-value-fund-direct-growth"
+          target="_blank"
+          >Invest Now</a
+        >
+      </div>
+    </div>
+  </body>
+</html>
