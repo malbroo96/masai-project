@@ -12,13 +12,14 @@
       }
 
       /* Navbar */
-
+      /* Navbar Styles */
       .navbar {
         display: flex;
-        justify-content: space-between; /* pushes left and right sections apart */
+        justify-content: space-between;
         align-items: center;
-        background: linear-gradient(90deg, orange, goldenrod);
-        padding: 10px 20px;
+        background: linear-gradient(135deg, #ff6b6b, #ffb88c);
+        padding: 15px 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       }
 
       .navbar ul {
@@ -26,25 +27,43 @@
         display: flex;
         margin: 0;
         padding: 0;
+        gap: 30px;
       }
 
-      .navbar li {
-        margin: 0 15px;
-      }
-
-      .navbar a {
+      .navbar li a {
         text-decoration: none;
         color: white;
-        font-weight: bold;
-        transition: color 0.3s;
-      }
-
-      .navbar a:hover {
-        color: #ffeb99; /* light golden on hover */
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        padding: 8px 15px;
+        border-radius: 20px;
       }
 
       .navbar li a:hover {
-        color: black;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .navbar .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .navbar .logo img {
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+      }
+
+      .navbar .logo span {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
       }
       nav .logo {
         display: flex;
@@ -102,10 +121,7 @@
     <!-- Navbar -->
     <nav class="navbar">
       <div class="logo">
-        <img
-          src="assets/WhatsApp Image 2025-08-19 at 17.39.45_8117ac4f.jpg"
-          alt="Wealthy Logo"
-        />
+        <img src="assets/logo.jpg" alt="Wealthy Logo" />
         <span>Wealthy</span>
       </div>
 
@@ -120,7 +136,7 @@
         <li><a href="#" id="logoutBtn">Logout</a></li>
       </ul>
     </nav>
-
+    <script src="config.js"></script>
     <script type="module">
       import {
         getAuth,
@@ -128,16 +144,6 @@
         onAuthStateChanged,
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-      const firebaseConfig = {
-        apiKey: "AIzaSyCjJGfH2i_WSlQllKTpIF8zB4yLoBVyCwo",
-        authDomain: "wealthy-cac7b.firebaseapp.com",
-        projectId: "wealthy-cac7b",
-        storageBucket: "wealthy-cac7b.appspot.com",
-        messagingSenderId: "819937615061",
-        appId: "1:819937615061:web:0b36637c108535a56e565c",
-        measurementId: "G-9GF1PS2LHZ",
-      };
 
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
@@ -193,4 +199,12 @@
       </div>
     </div>
   </body>
+  <footer>
+    <p
+      style="text-align: center; padding: 10px; background: #222; color: white"
+    >
+      &copy; 2024 Wealthy. All rights reserved.<br />
+      Contact us : akhiljoseph225292@gmail.com
+    </p>
+  </footer>
 </html>

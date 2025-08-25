@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Chatbot Test</title>
+    <style>
+      /* Floating button */
+      #chat-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 1000;
+      }
+
+      /* Chat popup */
+      #chat-popup {
+        display: none;
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 300px;
+        max-height: 400px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #chat-messages {
+        padding: 10px;
+        flex: 1;
+        overflow-y: auto;
+        font-family: sans-serif;
+      }
+
+      #chat-input {
+        display: flex;
+        border-top: 1px solid #ccc;
+      }
+
+      #chat-input input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-bottom-left-radius: 10px;
+      }
+
+      #chat-input button {
+        padding: 10px;
+        background: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-bottom-right-radius: 10px;
+      }
+
+      .user-msg {
+        text-align: right;
+        margin-bottom: 10px;
+      }
+
+      .bot-msg {
+        text-align: left;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating button -->
+    <button id="chat-button">💬</button>
+
+    <!-- Chat popup -->
+    <div id="chat-popup">
+      <div id="chat-messages"></div>
+      <div id="chat-input">
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+
+    <!-- Load config.js first -->
+    <script src="config.js"></script>
+
+    <script>
+      const chatButton = document.getElementById("chat-button");
+      const chatPopup = document.getElementById("chat-popup");
+      const sendBtn = document.getElementById("send-btn");
+      const userInput = document.getElementById("user-input");
+      const chatMessages = document.getElementById("chat-messages");
+
+      chatButton.addEventListener("click", () => {
+        chatPopup.style.display =
+          chatPopup.style.display === "flex" ? "none" : "flex";
+      });
+
+      // Function to add message to chat window
+      function addMessage(sender, text) {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = sender === "user" ? "user-msg" : "bot-msg";
+        msgDiv.textContent = text;
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      // Function to send message to chatbot API
+      async function sendMessage(message) {
+        addMessage("user", message);
+        userInput.value = "";
+
+        const response = await fetch(HF_API_URL, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${HF_API_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            inputs: message,
+            parameters: {
+              candidate_labels: [
+                "positive",
+                "negative",
+                "neutral",
+                "business",
+                "technology",
+                "sports",
+              ],
+            },
+          }),
+        });
+
+        const data = await response.json();
+        let botReply = "Sorry, I did not understand that.";
+        if (data && data.scores) {
+          botReply = data.scores.join(", ");
+        }
+        addMessage("bot", botReply);
+      }
+
+      sendBtn.addEventListener("click", () => {
+        const message = userInput.value.trim();
+        if (message) sendMessage(message);
+      });
+
+      userInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendBtn.click();
+        }
+      });
+    </script>
+  </body>
+</html>

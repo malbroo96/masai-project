@@ -1,16 +1,21 @@
+/* Global Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f9;
   margin: 0;
-  background: #fffaf0;
-  text-align: center;
+  padding: 0;
+  color: #333;
 }
 
+/* Navbar Styles */
 .navbar {
   display: flex;
-  justify-content: space-between; /* pushes left and right sections apart */
+  justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, orange, goldenrod);
-  padding: 10px 20px;
+  background: linear-gradient(135deg, #ff6b6b, #ffb88c);
+  padding: 15px 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .navbar ul {
@@ -18,50 +23,44 @@ body {
   display: flex;
   margin: 0;
   padding: 0;
+  gap: 30px;
 }
 
-.navbar li {
-  margin: 0 15px;
-}
-
-.navbar a {
+.navbar li a {
   text-decoration: none;
   color: white;
-  font-weight: bold;
-  transition: color 0.3s;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  padding: 8px 15px;
+  border-radius: 20px;
 }
-
-.navbar a:hover {
-  color: #ffeb99; /* light golden on hover */
-}
-
 
 .navbar li a:hover {
-  color: black;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
-
-nav .logo {
+.navbar .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-nav .logo img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%; /* makes it circular */
+.navbar .logo img {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
   object-fit: cover;
+  border: 2px solid white;
 }
 
-nav .logo span {
+.navbar .logo span {
   color: white;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
+  letter-spacing: 0.5px;
 }
-
-
-
 
 /* News Section */
 #news-section {
