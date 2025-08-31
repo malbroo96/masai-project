@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic User List with Validation</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React and ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function UserCard({ name, email, age }) {
+      const cardStyle = {
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        padding: "12px",
+        margin: "8px",
+        width: "250px",
+        background: "#f9f9f9",
+        boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
+      };
+
+      return (
+        <div style={cardStyle}>
+          <h3>{name}</h3>
+          <p><b>Email:</b> {email}</p>
+          <p><b>Age:</b> {age}</p>
+        </div>
+      );
+    }
+
+    function UserList({ users }) {
+      return (
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {users.map((user, index) => (
+            <UserCard key={index} {...user} />
+          ))}
+        </div>
+      );
+    }
+
+
+    function App() {
+      const [users, setUsers] = useState([
+        { name: "Aarav Sharma", email: "aarav.sharma@example.com", age: 25 },
+        { name: "Neha Verma", email: "neha.verma@example.com", age: 30 }
+      ]);
+
+      const [form, setForm] = useState({ name: "", email: "", age: "" });
+      const [errors, setErrors] = useState({});
+
+
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+      };
+
+      const validate = () => {
+        let newErrors = {};
+        if (!form.name.trim()) newErrors.name = "Name is required.";
+        if (!form.email.includes("@") || !form.email.includes(".")) {
+          newErrors.email = "Enter a valid email address.";
+        }
+        if (!form.age || isNaN(form.age) || Number(form.age) <= 0) {
+          newErrors.age = "Age must be a positive number.";
+        }
+        return newErrors;
+      };
+
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+          setErrors(validationErrors);
+          return;
+        }
+
+        const newUser = {
+          name: form.name,
+          email: form.email,
+          age: Number(form.age)
+        };
+
+  
+        setUsers([...users, newUser]);
+
+
+        setForm({ name: "", email: "", age: "" });
+        setErrors({});
+      };
+
+      return (
+        <div style={{ fontFamily: "Arial", padding: "20px" }}>
+          <h1>User Management</h1>
+
+          {/* ✅ Form */}
+          <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={form.name}
+              onChange={handleChange}
+              style={{ marginRight: "10px", padding: "8px" }}
+            />
+            {errors.name && <span style={{ color: "red" }}>{errors.name}</span>}
+            <br /><br />
+
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+              style={{ marginRight: "10px", padding: "8px" }}
+            />
+            {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
+            <br /><br />
+
+            <input
+              type="number"
+              name="age"
+              placeholder="Age"
+              value={form.age}
+              onChange={handleChange}
+              style={{ marginRight: "10px", padding: "8px" }}
+            />
+            {errors.age && <span style={{ color: "red" }}>{errors.age}</span>}
+            <br /><br />
+
+            <button type="submit" style={{ padding: "10px 20px", background: "blue", color: "white", border: "none", borderRadius: "5px" }}>
+              Add User
+            </button>
+          </form>
+
+          <UserList users={users} />
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
