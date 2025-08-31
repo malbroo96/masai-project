@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React SPA</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React and ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function App() {
+      const [page, setPage] = useState("home");
+
+      const renderPage = () => {
+        if (page === "home") return <h2 style={{ color: "blue" }}>Welcome to Home</h2>;
+        if (page === "about") return <h2 style={{ color: "green" }}>About Us</h2>;
+        if (page === "contact") return <h2 style={{ color: "red" }}>Contact Us</h2>;
+      };
+
+      const linkStyle = (current) => ({
+        marginRight: "10px",
+        padding: "8px 16px",
+        cursor: "pointer",
+        border: "none",
+        backgroundColor: page === current ? "black" : "lightgray",
+        color: page === current ? "white" : "black",
+        borderRadius: "6px"
+      });
+
+      return (
+        <div>
+          <nav style={{ marginBottom: "20px" }}>
+            <button style={linkStyle("home")} onClick={() => setPage("home")}>Home</button>
+            <button style={linkStyle("about")} onClick={() => setPage("about")}>About</button>
+            <button style={linkStyle("contact")} onClick={() => setPage("contact")}>Contact</button>
+          </nav>
+          {renderPage()}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
