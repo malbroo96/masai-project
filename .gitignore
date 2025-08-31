@@ -1,2 +1,4 @@
 # Ignore creds file
 config.js
+node_modules
+chat.html

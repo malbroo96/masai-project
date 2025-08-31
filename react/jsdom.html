@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Virtual DOM vs DOM - Vanilla JS</title>
+  </head>
+  <body>
+    <h1 id="page-title">Hello, World!</h1>
+    <p>DOM Updates Count: <span id="dom-count">0</span></p>
+    <button onclick="changeTitle()">Change Title (Vanilla JS)</button>
+
+    <script>
+      let domUpdates = 0;
+
+      function changeTitle() {
+        document.getElementById("page-title").innerText =
+          "Vanilla JS Title " + domUpdates;
+
+        domUpdates++;
+        document.getElementById("dom-count").innerText = domUpdates;
+      }
+    </script>
+  </body>
+</html>
