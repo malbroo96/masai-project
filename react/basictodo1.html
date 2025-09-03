@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo List App</title>
+</head>
+<body>
+  <!-- Root element where React will render -->
+  <div id="root"></div>
+
+  <!-- React and ReactDOM (Development mode from CDN) -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  
+  <!-- Babel compiler to allow JSX inside browser -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Our React Code -->
+  <script type="text/babel">
+    // ✅ Create main TodoList component
+    function TodoList() {
+      // Initialize with sample tasks
+      const [tasks, setTasks] = React.useState(["Buy milk", "Study React"]);
+
+      // State for input field
+      const [input, setInput] = React.useState("");
+
+      // Add a task
+      const addTask = () => {
+        if (input.trim() === "") {
+          alert("Task cannot be empty!");
+          return;
+        }
+        setTasks([...tasks, input]);
+        setInput(""); // clear input after adding
+      };
+
+      // Clear all tasks
+      const clearAll = () => {
+        setTasks([]); // empty the array
+      };
+
+      return (
+        <div style={{ margin: "20px", fontFamily: "Arial" }}>
+          <h2>Todo List</h2>
+
+          {/* Input field (controlled by state) */}
+          <input
+            type="text"
+            value={input}
+            placeholder="Enter new task"
+            onChange={(e) => setInput(e.target.value)}
+          />
+
+          {/* Add Task button */}
+          <button onClick={addTask}>Add Task</button>
+
+          {/* Clear All button */}
+          <button onClick={clearAll} style={{ marginLeft: "10px", color: "red" }}>
+            Clear All
+          </button>
+
+          <hr />
+
+          {/* ✅ Show message if no tasks */}
+          {tasks.length === 0 ? (
+            <p>No tasks available.</p>
+          ) : (
+            <ul>
+              {tasks.map((task, index) => (
+                <li key={index}>{task}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      );
+    }
+
+    // Render TodoList component into #root div
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<TodoList />);
+  </script>
+</body>
+</html>
