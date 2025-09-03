@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React with CDN</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React and ReactDOM (Development Mode) -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel (for JSX support in browser) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Your React Code -->
+   <script type="text/babel">
+function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  function increment() {
+    setCount(count + 1);
+    console.log(count);
+  }
+
+  return <button onClick={increment}>Count: {count}</button>;
+}
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Counter />);
+
+
+
+  </script>
+</body>
+</html>
